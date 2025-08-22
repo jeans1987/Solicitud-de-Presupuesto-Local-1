@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Presupuesto a Depto de Finanzas del Hospital Dr. Carlos Cisternas de Calama</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --gray: #95a5a6;
+            --light-blue: #e8f4fc;
+            --light-yellow: #fff8e1;
+            --light-green: #e8f5e9;
+            --light-red: #ffebee;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 10px;
+            min-height: 100vh;
+            font-size: 14px; /* Tamaño de fuente ligeramente reducido */
+            width: 100%;
+            overflow-x: hidden; /* Evita scroll horizontal */
+        }
+        
+        .container {
+            width: 75%; /* Ancho reducido al 75% */
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            min-height: 95vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--warning));
+        }
+        
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .form-section, .data-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            font-weight: 600;
+            word-break: break-word;
+            font-size: 1.4rem;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background: white;
+        }
+        
+        button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+            flex: 1;
+            max-height: 50vh; /* Altura máxima para la tabla */
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            min-width: 700px;
+        }
+        
+        th, td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #eaeaea;
+            word-break: break-word;
+            max-width: 180px;
+            font-size: 0.9rem;
+        }
+        
+        th {
+            background-color: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+            position: sticky;
+            top: 0;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+        
+        tr {
+            transition: background-color 0.2s;
+        }
+        
+        tr:hover {
+            background-color: rgba(52, 152, 219, 0.03);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            color: white;
+            background-color: var(--success);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(100%);
+            transition: transform 0.4s ease-out;
+            z-index: 1000;
+            max-width: 350px;
+            word-break: break-word;
+            font-size: 0.9rem;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background-color: var(--accent);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray);
+            font-size: 12px;
+            padding: 18px;
+            background-color: var(--light);
+            border-top: 1px solid #ddd;
+            flex-shrink: 0;
+            word-break: break-word;
+        }
+        
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: white;
+        }
+        
+        .instructions {
+            display: none; /* Ocultar instrucciones */
+        }
+        
+        .time-display {
+            text-align: center;
+            font-size: 1.1rem;
+            margin: 12px 0;
+            padding: 12px;
+            background: linear-gradient(135deg, #e8f4fc, #d1e9ff);
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--primary);
+            word-break: break-word;
+        }
+        
+        .next-send {
+            text-align: center;
+            margin: 15px 0;
+            padding: 12px;
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-radius: 8px;
+            border-left: 4px solid var(--warning);
+            color: #856404;
+            word-break: break-word;
+        }
+        
+        .send-info {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--secondary);
+            word-break: break-word;
+            font-size: 0.9rem;
+        }
+        
+        .clp-format {
+            position: relative;
+        }
+        
+        .clp-format::before {
+            content: '$';
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            color: #666;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .clp-format input {
+            padding-left: 25px;
+        }
+        
+        .urgent-info {
+            background: linear-gradient(135deg, #ffe6e6, #ffcccc);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent);
+            color: #721c24;
+            word-break: break-word;
+            font-size: 0.9rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .contact-person {
+            flex: 1;
+            min-width: 180px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 12px;
+            border-radius: 8px;
+            word-break: break-word;
+            font-size: 0.9rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+            font-style: italic;
+            background-color: #fafafa;
+            border-radius: 8px;
+            margin: 12px 0;
+            word-break: break-word;
+        }
+        
+        .user-selector {
+            text-align: center;
+            margin: 12px 0;
+            padding: 12px;
+            background: linear-gradient(135deg, #e8f4fc, #d1e9ff);
+            border-radius: 8px;
+            font-weight: 500;
+            word-break: break-word;
+        }
+        
+        .user-selector select {
+            width: auto;
+            margin-left: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            background: white;
+            font-weight: 600;
+            color: var(--primary);
+            max-width: 100%;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .edit-btn, .save-btn, .cancel-btn, .delete-btn {
+            padding: 8px 12px;
+            font-size: 12px;
+            width: auto;
+            margin-top: 0;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        
+        .edit-btn {
+            background-color: var(--warning);
+        }
+        
+        .save-btn {
+            background-color: var(--success);
+        }
+        
+        .cancel-btn {
+            background-color: var(--gray);
+        }
+        
+        .delete-btn {
+            background-color: var(--accent);
+        }
+        
+        .editing {
+            background-color: var(--light-yellow) !important;
+        }
+        
+        .edit-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            background: white;
+        }
+        
+        .user-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 6px;
+            background: var(--secondary);
+            color: white;
+            white-space: nowrap;
+        }
+        
+        .user-own {
+            background: var(--success);
+        }
+        
+        .form-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            z-index: 10;
+        }
+        
+        .form-section {
+            position: relative;
+        }
+        
+        .form-overlay p {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+            padding: 15px;
+            word-break: break-word;
+        }
+        
+        .record-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        tr.selected {
+            background-color: #e3f2fd !important;
+            box-shadow: 0 0 0 2px var(--secondary);
+        }
+        
+        .config-section {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 4px solid var(--primary);
+            word-break: break-word;
+            display: none; /* Oculto por defecto, solo visible para Jeans */
+        }
+        
+        /* Mejoras de responsividad */
+        @media (max-width: 1600px) {
+            .container {
+                width: 85%;
+            }
+        }
+        
+        @media (max-width: 1400px) {
+            .container {
+                width: 90%;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .app-container {
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .form-section, .data-section {
+                padding: 15px;
+            }
+            
+            table {
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 8px;
+            }
+            
+            .container {
+                width: 100%;
+                border-radius: 8px;
+            }
+            
+            .app-container {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px;
+            }
+            
+            .form-section, .data-section {
+                padding: 12px;
+                min-width: 100%;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+            }
+            
+            .action-buttons, .record-actions {
+                flex-direction: column;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.8rem;
+            }
+            
+            header {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            input, select, textarea, button {
+                padding: 10px;
+            }
+            
+            .user-selector {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .user-selector select {
+                margin-left: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 6px;
+            }
+            
+            .app-container {
+                padding: 8px;
+                gap: 8px;
+            }
+            
+            .form-section, .data-section {
+                padding: 10px;
+            }
+            
+            th, td {
+                padding: 6px 4px;
+                font-size: 0.75rem;
+            }
+            
+            header {
+                padding: 0.8rem;
+            }
+            
+            .logo {
+                font-size: 18px;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+            
+            input, select, textarea, button {
+                padding: 8px;
+                font-size: 13px;
+            }
+            
+            .notification {
+                max-width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Solicitud de Presupuestos</div>
+            <p>Registro de solicitudes de presupuesto</p>
+        </header>
+        
+        <div class="user-selector">
+            <label for="current-user">Usuario actual:</label>
+            <select id="current-user">
+                <option value="">Seleccione un usuario</option>
+                <option value="Marianjeles Araya Garcia">Marianjeles Araya Garcia</option>
+                <option value="Jeans Muñoz Donaire">Jeans Muñoz Donaire</option>
+                <option value="Marcela Espindola Robles">Marcela Espindola Robles</option>
+                <option value="Ingrid Zavala Contreras">Ingrid Zavala Contreras</option>
+                <option value="Wilson Aracena Cortes">Wilson Aracena Cortes</option>
+                <option value="Ximena Cortes Campaña">Ximena Cortes Campaña</option>
+                <option value="Eleazar Ramirez Yañez">Eleazar Ramirez Yañez</option>
+                <option value="Hilda Carrasco Carrasco">Hilda Carrasco Carrasco</option>
+                <option value="Alexandra Berna Berna">Alexandra Berna Berna</option>
+                <option value="Alexandra Castro Quispe">Alexandra Castro Quispe</option>
+                <option value="Claudia Araya Perez">Claudia Araya Perez</option>
+            </select>
+        </div>
+        
+        <div class="time-display">
+            Hora actual: <span id="current-time">--:--:--</span>
+        </div>
+        
+        <div class="next-send">
+            Próximo envío automático: <span id="next-send-time">11:00:00</span>
+        </div>
+        
+        <div class="config-section" id="config-section">
+            <h3>Configuración de Google Apps Script</h3>
+            <p>Para habilitar el envío automático de correos, ingrese la URL de su Web App de Google Apps Script:</p>
+            <input type="text" id="script-url" placeholder="https://script.google.com/macros/s/..." style="margin: 10px 0;">
+            <button onclick="saveScriptUrl()">Guardar URL</button>
+        </div>
+        
+        <div class="app-container">
+            <section class="form-section">
+                <div class="form-overlay" id="formOverlay">
+                    <p>Seleccione un usuario para habilitar el formulario</p>
+                </div>
+                
+                <h2>Nueva Solicitud de Presupuesto</h2>
+                
+                <div class="instructions">
+                    <p>Complete todos los campos. El ítem debe ser numérico. Los registros se envían automáticamente a las 11:00 y 15:00 horas.</p>
+                </div>
+                
+                <div class="send-info">
+                    <p><strong>Envíos automáticos:</strong> Los registros se enviarán a las 11:00 y 15:00 horas. Después de cada envío, la lista se limpiará para nuevos registros.</p>
+                </div>
+                
+                <div class="urgent-info">
+                    <p><strong>¿Solicitud de suma urgencia?</strong> Contacte directamente a:</p>
+                    <div class="contact-info">
+                        <div class="contact-person">
+                            <strong>Jeans Muñoz Donaire</strong><br>
+                            jeans.munoz.d@redsalud.gob.cl<br>
+                            Extensión: 760
+                        </div>
+                        <div class="contact-person">
+                            <strong>Hilda Carrasco Carrasco</strong><br>
+                            hilda.carrasco@redsalud.gob.cl<br>
+                            Extensión: 760
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px;">Para enviar la solicitud con el membrete de <strong>URGENTE</strong>.</p>
+                </div>
+                
+                <form id="budgetForm">
+                    <div class="form-group">
+                        <label for="analyst">Analista:</label>
+                        <select id="analyst" required>
+                            <option value="">Seleccione un analista</option>
+                            <option value="Marianjeles Araya Garcia">Marianjeles Araya Garcia</option>
+                            <option value="Jeans Muñoz Donaire">Jeans Muñoz Donaire</option>
+                            <option value="Marcela Espindola Robles">Marcela Espindola Robles</option>
+                            <option value="Ingrid Zavala Contreras">Ingrid Zavala Contreras</option>
+                            <option value="Wilson Aracena Cortes">Wilson Aracena Cortes</option>
+                            <option value="Ximena Cortes Campaña">Ximena Cortes Campaña</option>
+                            <option value="Eleazar Ramirez Yañez">Eleazar Ramirez Yañez</option>
+                            <option value="Hilda Carrasco Carrasco">Hilda Carrasco Carrasco</option>
+                            <option value="Alexandra Berna Berna">Alexandra Berna Berna</option>
+                            <option value="Alexandra Castro Quispe">Alexandra Castro Quispe</option>
+                            <option value="Claudia Araya Perez">Claudia Araya Perez</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="item">Item (solo números):</label>
+                        <input type="number" id="item" required placeholder="Solo números" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">Monto (CLP):</label>
+                        <div class="clp-format">
+                            <input type="text" id="amount" required placeholder="0" data-numeric-value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="uros">UROS:</label>
+                        <select id="uros" required>
+                            <option value="true">Sí</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sigfe">SIGFE:</label>
+                        <select id="sigfe" required>
+                            <option value="true">Sí</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Fecha (solo lectura):</label>
+                        <input type="text" id="date" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comments">Comentarios:</label>
+                        <textarea id="comments" rows="3" placeholder="Observaciones adicionales"></textarea>
+                    </div>
+                    
+                    <button type="submit">Registrar Solicitud</button>
+                </form>
+            </section>
+            
+            <section class="data-section">
+                <h2>Solicitudes Registradas <span id="requests-count">(0)</span></h2>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Analista</th>
+                                <th>Item</th>
+                                <th>Monto (CLP)</th>
+                                <th>UROS</th>
+                                <th>SIGFE</th>
+                                <th>Fecha</th>
+                                <th>Registrado por</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTable">
+                            <!-- Los datos se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="action-buttons">
+                    <div class="record-actions" id="recordActions" style="display: none;">
+                        <button class="edit-btn" id="editRecordBtn">Editar Registro</button>
+                        <button class="delete-btn" id="deleteRecordBtn">Eliminar Registro</button>
+                    </div>
+                    
+                    <div class="record-actions" id="manualSendContainer" style="display: none;">
+                        <button class="save-btn" onclick="manualSend()" style="background-color: #9b59b6;">Envío Manual a Gmail</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Sistema seguro de registro de presupuestos | Notificaciones automáticas a las 11:00 y 15:00 hrs</p>
+        </footer>
+    </div>
+    
+    <div class="notification" id="notification">
+        ¡Solicitud registrada exitosamente! Los datos han sido guardados correctamente.
+    </div>
+
+    <script>
+        // Almacenamiento de solicitudes - comenzar con array vacío
+        let requests = JSON.parse(localStorage.getItem('budgetRequests')) || [];
+        let currentUser = '';
+        let selectedRecordIndex = -1;
+        const SCRIPT_URL = localStorage.getItem('scriptUrl') || '';
+        
+        // Inicializar URL del script si existe
+        if (SCRIPT_URL) {
+            document.getElementById('script-url').value = SCRIPT_URL;
+        }
+        
+        // Guardar URL del script
+        function saveScriptUrl() {
+            const url = document.getElementById('script-url').value;
+            if (url) {
+                localStorage.setItem('scriptUrl', url);
+                showNotification('URL de Google Apps Script guardada correctamente');
+            } else {
+                showNotification('Por favor, ingrese una URL válida', true);
+            }
+        }
+        
+        // Función para verificar si el usuario actual puede usar envío manual
+        function canUseManualSend() {
+            return currentUser === "Jeans Muñoz Donaire" || currentUser === "Hilda Carrasco Carrasco";
+        }
+        
+        // Función para verificar si el usuario actual es Jeans
+        function isJeansUser() {
+            return currentUser === "Jeans Muñoz Donaire";
+        }
+        
+        // Actualizar visibilidad del botón de envío manual y sección de configuración
+        function updateUserSpecificElements() {
+            const manualSendContainer = document.getElementById('manualSendContainer');
+            const configSection = document.getElementById('config-section');
+            
+            if (canUseManualSend()) {
+                manualSendContainer.style.display = 'flex';
+            } else {
+                manualSendContainer.style.display = 'none';
+            }
+            
+            if (isJeansUser()) {
+                configSection.style.display = 'block';
+            } else {
+                configSection.style.display = 'none';
+            }
+        }
+        
+        // Envío manual de datos
+        async function manualSend() {
+            if (requests.length === 0) {
+                showNotification('No hay solicitudes para enviar', true);
+                return;
+            }
+            
+            if (!SCRIPT_URL) {
+                showNotification('Configure primero la URL de Google Apps Script', true);
+                return;
+            }
+            
+            try {
+                showNotification('Enviando solicitudes...');
+                
+                // Verificar si es día de semana (lunes a viernes)
+                const today = new Date();
+                const dayOfWeek = today.getDay(); // 0 = domingo, 1 = lunes, ..., 6 = sábado
+                
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    showNotification('Los envíos automáticos solo funcionan de lunes a viernes', true);
+                    return;
+                }
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'processRequests',
+                        requests: requests,
+                        timestamp: new Date().toISOString(),
+                        to: 'jeans.munoz.d@redsalud.gob.cl',
+                        subject: 'Solicitud de Presupuesto',
+                        message: 'Estimada:\n\nJunto con saludar, se solicita favor asignar presupuesto según documento adjunto.'
+                    })
+                });
+                
+                // Limpiar registros después del envío
+                requests = [];
+                updateTable();
+                showNotification('Solicitudes enviadas correctamente. La lista ha sido limpiada.');
+                
+            } catch (error) {
+                console.error('Error al enviar:', error);
+                showNotification('Error al enviar las solicitudes. Verifique la URL.', true);
+            }
+        }
+        
+        // Actualizar usuario actual cuando cambie la selección
+        document.getElementById('current-user').addEventListener('change', function() {
+            currentUser = this.value;
+            if (currentUser) {
+                document.getElementById('formOverlay').style.display = 'none';
+                document.getElementById('analyst').value = currentUser;
+            } else {
+                document.getElementById('formOverlay').style.display = 'flex';
+            }
+            updateTable();
+            updateUserSpecificElements(); // Actualizar elementos específicos del usuario
+        });
+        
+        // Función para mostrar notificación
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            
+            if (isError) {
+                notification.classList.add('error');
+            } else {
+                notification.classList.remove('error');
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Función para formatear números con separadores de miles (formato CLP)
+        function formatCLP(number) {
+            return new Intl.NumberFormat('es-CL').format(number);
+        }
+        
+        // Función para convertir formato CLP a número
+        function parseCLP(clpString) {
+            return parseInt(clpString.replace(/\./g, '').replace('$', '').trim());
+        }
+        
+        // Función para obtener la fecha actual en formato dd/mm/aaaa
+        function getCurrentDate() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        
+        // Función para actualizar la tabla con los datos
+        function updateTable() {
+            const table = document.getElementById('dataTable');
+            table.innerHTML = '';
+            selectedRecordIndex = -1;
+            document.getElementById('recordActions').style.display = 'none';
+            
+            if (requests.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `
+                    <td colspan="8" class="empty-state">
+                        No hay solicitudes registradas
+                    </td>
+                `;
+                table.appendChild(emptyRow);
+            } else {
+                requests.forEach((request, index) => {
+                    const isOwner = request.creator === currentUser;
+                    const row = document.createElement('tr');
+                    row.dataset.index = index;
+                    
+                    // Alternar colores de fila para mejor legibilidad
+                    if (index % 2 === 0) {
+                        row.style.backgroundColor = '#f9f9f9';
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${request.analyst}</td>
+                        <td>${request.item}</td>
+                        <td>$${formatCLP(request.amount)}</td>
+                        <td>${request.uros}</td>
+                        <td>${request.sigfe}</td>
+                        <td>${request.date}</td>
+                        <td>${request.creator} ${isOwner ? '<span class="user-badge user-own">Tú</span>' : ''}</td>
+                    `;
+                    
+                    // Resaltar fila al hacer clic y mostrar acciones
+                    row.addEventListener('click', function() {
+                        // Quitar selección anterior
+                        const previouslySelected = document.querySelector('tr.selected');
+                        if (previouslySelected) {
+                            previouslySelected.classList.remove('selected');
+                        }
+                        
+                        // Seleccionar nueva fila
+                        this.classList.add('selected');
+                        selectedRecordIndex = index;
+                        
+                        // Mostrar u ocultar botones según permisos
+                        const isOwner = requests[selectedRecordIndex].creator === currentUser;
+                        if (isOwner) {
+                            document.getElementById('recordActions').style.display = 'flex';
+                        } else {
+                            document.getElementById('recordActions').style.display = 'none';
+                        }
+                    });
+                    
+                    table.appendChild(row);
+                });
+            }
+            
+            // Actualizar contador
+            document.getElementById('requests-count').textContent = `(${requests.length})`;
+            
+            // Guardar en localStorage
+            localStorage.setItem('budgetRequests', JSON.stringify(requests));
+        }
+        
+        // Eliminar una solicitud
+        function deleteRequest(index) {
+            if (confirm('¿Está seguro de que desea eliminar esta solicitud?')) {
+                requests.splice(index, 1);
+                updateTable();
+                showNotification('Solicitud eliminada correctamente');
+            }
+        }
+        
+        // Habilitar edición de un registro
+        function enableEdit(index) {
+            const request = requests[index];
+            
+            // Crear formulario de edición
+            const editForm = document.createElement('div');
+            editForm.innerHTML = `
+                <h3>Editar Solicitud</h3>
+                <form id="editForm">
+                    <div class="form-group">
+                        <label for="edit-analyst">Analista:</label>
+                        <select id="edit-analyst" required>
+                            <option value="Marianjeles Araya Garcia" ${request.analyst === 'Marianjeles Araya Garcia' ? 'selected' : ''}>Marianjeles Araya Garcia</option>
+                            <option value="Jeans Muñoz Donaire" ${request.analyst === 'Jeans Muñoz Donaire' ? 'selected' : ''}>Jeans Muñoz Donaire</option>
+                            <option value="Marcela Espindola Robles" ${request.analyst === 'Marcela Espindola Robles' ? 'selected' : ''}>Marcela Espindola Robles</option>
+                            <option value="Ingrid Zavala Contreras" ${request.analyst === 'Ingrid Zavala Contreras' ? 'selected' : ''}>Ingrid Zavala Contreras</option>
+                            <option value="Wilson Aracena Cortes" ${request.analyst === 'Wilson Aracena Cortes' ? 'selected' : ''}>Wilson Aracena Cortes</option>
+                            <option value="Ximena Cortes Campaña" ${request.analyst === 'Ximena Cortes Campaña' ? 'selected' : ''}>Ximena Cortes Campaña</option>
+                            <option value="Eleazar Ramirez Yañez" ${request.analyst === 'Eleazar Ramirez Yañez' ? 'selected' : ''}>Eleazar Ramirez Yañez</option>
+                            <option value="Hilda Carrasco Carrasco" ${request.analyst === 'Hilda Carrasco Carrasco' ? 'selected' : ''}>Hilda Carrasco Carrasco</option>
+                            <option value="Alexandra Berna Berna" ${request.analyst === 'Alexandra Berna Berna' ? 'selected' : ''}>Alexandra Berna Berna</option>
+                            <option value="Alexandra Castro Quispe" ${request.analyst === 'Alexandra Castro Quispe' ? 'selected' : ''}>Alexandra Castro Quispe</option>
+                            <option value="Claudia Araya Perez" ${request.analyst === 'Claudia Araya Perez' ? 'selected' : ''}>Claudia Araya Perez</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-item">Item (solo números):</label>
+                        <input type="number" id="edit-item" value="${request.item}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-amount">Monto (CLP):</label>
+                        <div class="clp-format">
+                            <input type="text" id="edit-amount" value="$${formatCLP(request.amount)}" required data-numeric-value="${request.amount}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-uros">UROS:</label>
+                        <select id="edit-uros" required>
+                            <option value="Sí" ${request.uros === 'Sí' ? 'selected' : ''}>Sí</option>
+                            <option value="No" ${request.uros === 'No' ? 'selected' : ''}>No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-sigfe">SIGFE:</label>
+                        <select id="edit-sigfe" required>
+                            <option value="Sí" ${request.sigfe === 'Sí' ? 'selected' : ''}>Sí</option>
+                            <option value="No" ${request.sigfe === 'No' ? 'selected' : ''}>No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-date">Fecha:</label>
+                        <input type="text" id="edit-date" value="${request.date}" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-comments">Comentarios:</label>
+                        <textarea id="edit-comments" rows="3">${request.comments || ''}</textarea>
+                    </div>
+                    
+                    <div class="record-actions">
+                        <button type="submit" class="save-btn">Guardar Cambios</button>
+                        <button type="button" class="cancel-btn" onclick="closeEditForm()">Cancelar</button>
+                    </div>
+                </form>
+            `;
+            
+            // Añadir formulario al DOM
+            const dataSection = document.querySelector('.data-section');
+            dataSection.appendChild(editForm);
+            
+            // Configurar formato CLP para el monto en edición
+            const amountInput = document.getElementById('edit-amount');
+            amountInput.addEventListener('input', function(e) {
+                let numericValue = parseCLP(e.target.value) || 0;
+                e.target.setAttribute('data-numeric-value', numericValue);
+                
+                if (numericValue > 0) {
+                    e.target.value = formatCLP(numericValue);
+                } else {
+                    e.target.value = '';
+                }
+            });
+            
+            // Manejar envío del formulario de edición
+            document.getElementById('editForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const analyst = document.getElementById('edit-analyst').value;
+                const item = document.getElementById('edit-item').value;
+                const amount = parseCLP(document.getElementById('edit-amount').value);
+                const uros = document.getElementById('edit-uros').value;
+                const sigfe = document.getElementById('edit-sigfe').value;
+                const comments = document.getElementById('edit-comments').value;
+                
+                // Validaciones
+                if (isNaN(item) || item.trim() === '') {
+                    showNotification('El campo Item debe contener solo números', true);
+                    return;
+                }
+                
+                if (isNaN(amount) || amount <= 0) {
+                    showNotification('El monto debe ser un valor numérico mayor a cero', true);
+                    return;
+                }
+                
+                // Actualizar el registro
+                requests[index] = {
+                    ...requests[index],
+                    analyst,
+                    item,
+                    amount,
+                    uros,
+                    sigfe,
+                    comments
+                };
+                
+                // Cerrar formulario y actualizar tabla
+                closeEditForm();
+                updateTable();
+                showNotification('Cambios guardados exitosamente');
+            });
+        }
+        
+        // Cerrar formulario de edición
+        function closeEditForm() {
+            const editForm = document.querySelector('#editForm').closest('div');
+            if (editForm) {
+                editForm.remove();
+            }
+        }
+        
+        // Función para comprobar si es hora de envío automático
+        function checkAutoSend() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const dayOfWeek = now.getDay(); // 0 = domingo, 1 = lunes, ..., 6 = sábado
+            
+            // Solo días de semana (lunes a viernes)
+            if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+                // Comprobar si son las 11:00:00 o 15:00:00
+                if ((hours === 11 && minutes === 0 && seconds === 0) || 
+                    (hours === 15 && minutes === 0 && seconds === 0)) {
+                    if (requests.length > 0 && SCRIPT_URL) {
+                        manualSend();
+                    }
+                }
+            }
+        }
+        
+        // Función para actualizar el reloj en tiempo real
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-CL');
+            document.getElementById('current-time').textContent = timeString;
+            
+            // Comprobar si es hora de envío automático
+            checkAutoSend();
+            
+            // Calcular próximo envío
+            const hours = now.getHours();
+            let nextSend = '11:00:00';
+            
+            if (hours >= 11 && hours < 15) {
+                nextSend = '15:00:00';
+            } else if (hours >= 15) {
+                nextSend = '11:00:00 (próximo día)';
+            }
+            
+            document.getElementById('next-send-time').textContent = nextSend;
+        }
+        
+        // Inicializar la aplicación
+        function initApp() {
+            // Establecer la fecha actual
+            document.getElementById('date').value = getCurrentDate();
+            
+            // Configurar formato CLP para el monto
+            const amountInput = document.getElementById('amount');
+            amountInput.addEventListener('input', function(e) {
+                // Obtener valor numérico
+                let numericValue = parseCLP(e.target.value) || 0;
+                
+                // Guardar el valor numérico en data attribute
+                e.target.setAttribute('data-numeric-value', numericValue);
+                
+                // Formatear visualmente
+                if (numericValue > 0) {
+                    e.target.value = formatCLP(numericValue);
+                } else {
+                    e.target.value = '';
+                }
+            });
+            
+            // Configurar botones de acción
+            document.getElementById('editRecordBtn').addEventListener('click', function() {
+                if (selectedRecordIndex !== -1) {
+                    enableEdit(selectedRecordIndex);
+                } else {
+                    showNotification('Por favor, seleccione un registro para editar', true);
+                }
+            });
+            
+            document.getElementById('deleteRecordBtn').addEventListener('click', function() {
+                if (selectedRecordIndex !== -1) {
+                    deleteRequest(selectedRecordIndex);
+                } else {
+                    showNotification('Por favor, seleccione un registro para eliminar', true);
+                }
+            });
+            
+            // Actualizar tabla con datos existentes
+            updateTable();
+            
+            // Actualizar visibilidad de elementos específicos del usuario
+            updateUserSpecificElements();
+            
+            // Iniciar reloj
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Manejar el envío del formulario
+            document.getElementById('budgetForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validar que se haya seleccionado un usuario
+                if (!currentUser) {
+                    showNotification('Debe seleccionar un usuario primero', true);
+                    return;
+                }
+                
+                // Validar que el ítem sea numérico
+                const itemValue = document.getElementById('item').value;
+                if (isNaN(itemValue) || itemValue.trim() === '') {
+                    showNotification('El campo Item debe contener solo números', true);
+                    return;
+                }
+                
+                // Obtener valor numérico del monto
+                const amountValue = parseInt(amountInput.getAttribute('data-numeric-value'));
+                if (isNaN(amountValue) || amountValue <= 0) {
+                    showNotification('El monto debe ser un valor numérico mayor a cero', true);
+                    return;
+                }
+                
+                // Crear nueva solicitud
+                const newRequest = {
+                    analyst: document.getElementById('analyst').value,
+                    item: document.getElementById('item').value,
+                    amount: amountValue,
+                    uros: document.getElementById('uros').value === 'true' ? 'Sí' : 'No',
+                    sigfe: document.getElementById('sigfe').value === 'true' ? 'Sí' : 'No',
+                    date: getCurrentDate(),
+                    comments: document.getElementById('comments').value,
+                    creator: currentUser
+                };
+                
+                // Agregar a la lista
+                requests.push(newRequest);
+                
+                // Actualizar tabla
+                updateTable();
+                
+                // Mostrar notificación
+                showNotification('¡Solicitud registrada exitosamente!');
+                
+                // Limpiar formulario (excepto analista y fecha)
+                document.getElementById('item').value = '';
+                amountInput.value = '';
+                amountInput.setAttribute('data-numeric-value', '0');
+                document.getElementById('uros').value = 'true';
+                document.getElementById('sigfe').value = 'true';
+                document.getElementById('comments').value = '';
+            });
+        }
+        
+        // Iniciar la aplicación cuando el documento esté listo
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
